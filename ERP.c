@@ -1,15 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <locale.h>
 
 int main()
 {
-    int qtde_est[100], menu1_option, i = 0, contador;
-    char nome_prod[20][100], menu1_1;
-    float preco_v[100], custo[100];
+    int qtde_est[5], menu1_option, contador = 0, opt1;
+    char nome_prod[10][3];
+    float preco_v[5], custo[5];
 
     printf("  --SISTEMA DE GESTAO--\n\n");
 
-    for (int a = 0;; a++)
+    do
     {
         printf("\n");
         printf("         MENU\n\n");
@@ -22,28 +24,32 @@ int main()
 
         if (menu1_option == 1)
         {
+            int i = 0;
             do
             {
                 system("cls");
                 printf("\n");
                 printf("     CADASTRO\n\n");
                 printf("\nDigite o nome do produto: ");
-                scanf("%s", &nome_prod[i]);
+                // fflush(stdin);
+                scanf("%s", nome_prod[i]);
                 printf("Digite a quantidade: ");
                 scanf("%d", &qtde_est[i]);
                 printf("Digite o custo do produto: R$ ");
                 scanf("%f", &custo[i]);
                 printf("Digite o preco de venda do produto: R$ ");
                 scanf("%f", &preco_v[i]);
-                printf("Deseja cadastrar outro produto? 'S/N': ");
-                scanf("%s", &menu1_1);
-                if (menu1_1 == 'S' || menu1_1 == 's')
+                printf("\nDeseja cadastrar outro produto?");
+                printf("\n1 - Sim");
+                printf("\n2 - Nao\n");
+                printf("Digite a opcao desejada: ");
+                scanf("%d", &opt1);
+                if (opt1 == 1)
                 {
-                    menu1_1 = i + 2;
                 }
-                else if (menu1_1 == 'N' || menu1_1 == 'n')
+                else if (opt1 == 2)
                 {
-                    menu1_1 = 1;
+                    break;
                 }
                 else
                 {
@@ -51,25 +57,30 @@ int main()
                 }
                 i++;
                 contador++;
-            } while (i < menu1_1);
+            } while (opt1 == 1);
+            contador += 1;
+            system("cls");
         }
-        contador = contador;
+
         if (menu1_option == 2)
         {
-            int i=0;
+            int i = 0;
             do
             {
-                printf("  \nESTOQUE\n\n");
-                printf("Produto: %s\n", nome_prod[i]);
-                printf("Quantidade: %d\n", qtde_est[i]);
-                printf("Custo R$ %.2f\n", custo[i]);
-                printf("Preco Venda R$ %.2f\n", preco_v[i]);
+                system("cls");
+                printf("    ESTOQUE\n\n");
+                printf("\nProduto: %s", nome_prod[i]);
+                printf("\nQuantidade: %d", qtde_est[i]);
+                printf("\nPreco de Venda: R$ %.2f", preco_v[i]);
+                printf("\nMarkUp: %.2f\n\n", ((preco_v[i] / custo[i]) - 1)*100);
                 i++;
-            } while (i<= contador);
-            //system("cls");
+
+            } while (i < contador);
+            
         }
-        
-    }
+
+        //printf("%d", contador);
+    } while (menu1_option != 4);
 
     return 0;
 }

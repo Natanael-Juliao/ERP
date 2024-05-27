@@ -1,41 +1,24 @@
 #include <stdio.h>
+#include <string.h>
 
 int main()
 {
-    char nome[10], opt;
-    int menu;
+    char nome[3][5]={"Nata", "Toto",};
+    int menu[5] = {1,2,3,4,},i = 0;
+
+    /*do
+     {
+         printf("Digite um nome: ");
+         scanf("%s", nome[i]);
+         i++;
+     } while (i < 3);*/
 
     do
     {
-        printf("\n1 - Cadastrar Produto");
-        printf("\n2 - Consultar Estoque");
-        printf("\nDigite a opcao desejada: ");
-        scanf("%d", &menu);
-        if (menu == 1)
-        {
-            /*do
-            {*/            
-            printf("\nDigite o nome do Produto: ");
-            scanf("%s", nome);
-            /*if(menu2=='s' || menu2=='S')
-            {
-                menu2=1;
-            }
-            else if(menu2=='n' || menu2=='N')
-            {
-                menu2=0;
-            }
-            else
-            {
-                printf("Opcao Invalida!");
-            }
-            } while (menu2!=0);*/
-        }
-        if (menu == 2)
-        {
-            printf("%s", nome);
-        }
-    } while (menu != 3);
+        printf("O nome e: %s\n", nome[i]);
+        printf("O numero e: %d\n", menu[i])
+        i++;
+    } while (i<strlen(nome[i]));
 
     return 0;
 }

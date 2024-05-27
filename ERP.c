@@ -2,6 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+float markup(float a , float b)
+{
+    float res_mkp;
+    res_mkp = (((a/b)-1)*100);
+    return (res_mkp);
+}
+
 int main()
 {
     int qtde_est[5], menu1_option, opt1, a = 0, contador = 0, recebe = 0;
@@ -69,14 +76,23 @@ int main()
         if (menu1_option == 2)
         {
             system("cls");
+            printf("   -ESTOQUE-\n\n");
             for (int i = 0; i < contador; i++)
             {
-                printf("   -ESTOQUE-\n\n");
                 printf("\nCodigo: 000%d", i + 1);
                 printf("\nProduto: %s", nome_prod[i]);
                 printf("\nQuantidade: %d", qtde_est[i]);
                 printf("\nPreco de Venda: R$ %.2f", preco_v[i]);
-                printf("\nMarkUp: %.2f\n\n", ((preco_v[i] / custo[i]) - 1) * 100);
+                //printf("\nMarkUp: %.2f\n\n", ((preco_v[i] / custo[i]) - 1) * 100);
+                printf("\nMarkUp: %.2f\n", markup(preco_v[i], custo[i]));
+                if(markup(preco_v[i], custo[i])<20)
+                {
+                    printf("\n##Produto com markup baixo, revise o preco de venda!!##\n\n");
+                }
+                else
+                {
+                    printf("\n\n");
+                }
             }
             system("pause");
             system("cls");

@@ -9,9 +9,16 @@ float markup(float a, float b)
     return (res_mkp);
 }
 
+int estoque(int a, int b, int c)
+{
+    int res_est;
+    res_est = (a - b - c);
+    return (res_est);
+}
+
 int main()
 {
-    int qtde_est[5], menu1_option, opt1, a = 0, contador = 0, recebe = 0;
+    int qtde_est[5], menu1_option, opt1, a = 0, contador = 0, recebe = 0, qtde_numerador[5] = {0}, qtdven_numerador[5] = {0}, baixa[5]={0};
     char nome_prod[10][10];
     float preco_v[5], custo[5];
 
@@ -46,6 +53,7 @@ int main()
                 scanf("%s", nome_prod[i]);
                 printf("Digite a quantidade: ");
                 scanf("%d", &qtde_est[i]);
+                baixa[i] = qtde_est[i];
                 printf("Digite o custo do produto: R$ ");
                 scanf("%f", &custo[i]);
                 printf("Digite o preco de venda do produto: R$ ");
@@ -81,7 +89,7 @@ int main()
             {
                 printf("\nCodigo: 000%d", i + 1);
                 printf("\nProduto: %s", nome_prod[i]);
-                printf("\nQuantidade: %d", qtde_est[i]);
+                printf("\nQuantidade: %d", estoque(qtde_est[i], baixa[recebe - 1], qtdven_numerador[i]));
                 printf("\nPreco de Venda: R$ %.2f", preco_v[i]);
                 printf("\nMarkUp: %.2f\n", markup(preco_v[i], custo[i]));
                 if (markup(preco_v[i], custo[i]) < 20)
@@ -203,7 +211,6 @@ int main()
                 system("cls");
             }
         }
-
     } while (menu1_option != 4);
 
     return 0;

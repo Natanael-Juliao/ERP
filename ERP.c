@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-float markup(float a , float b)
+float markup(float a, float b)
 {
     float res_mkp;
-    res_mkp = (((a/b)-1)*100);
+    res_mkp = (((a / b) - 1) * 100);
     return (res_mkp);
 }
 
@@ -83,9 +83,8 @@ int main()
                 printf("\nProduto: %s", nome_prod[i]);
                 printf("\nQuantidade: %d", qtde_est[i]);
                 printf("\nPreco de Venda: R$ %.2f", preco_v[i]);
-                //printf("\nMarkUp: %.2f\n\n", ((preco_v[i] / custo[i]) - 1) * 100);
                 printf("\nMarkUp: %.2f\n", markup(preco_v[i], custo[i]));
-                if(markup(preco_v[i], custo[i])<20)
+                if (markup(preco_v[i], custo[i]) < 20)
                 {
                     printf("\n##Produto com markup baixo, revise o preco de venda!!##\n\n");
                 }
@@ -104,8 +103,16 @@ int main()
             int i = 0;
             int a = 0;
             int b = 0;
+            int d = 0;
+            int f = 1;
             int recebe1[i];
-            int cont = 1;
+            int cont = 0;
+            int numerador[f];
+            int qtde_numerador[f];
+            int preco_numerador[f];
+            int qtdven_numerador[f];
+            int pular = 0;
+            float subtot = 0;
             do
             {
                 printf("     -VENDA-\n");
@@ -116,6 +123,7 @@ int main()
                 printf("\nPreco: R$ %.2f", preco_v[recebe - 1]);
                 printf("\n\nQuantidade Venda: ");
                 scanf("%d", &a);
+                qtde_est[recebe - 1] = a;
                 if (a > qtde_est[recebe - 1])
                 {
                     printf("\nQuantidade Indisponivel!\n\nRefaca o Processo...\n\n");
@@ -125,46 +133,75 @@ int main()
             } while (a > qtde_est[recebe - 1]);
 
             printf("\nAdicionar outro produto: \n1 - Sim\n2 - Nao\nDigite a Opcao Desejada: ");
-            scanf("%d", &b);
-            if (b == 1)
-            {
-                do
-                {
-                    int i = 0;
-                    printf("\nDigite o codigo do produto: ");
-                    scanf("%d", &recebe1[i]);
-                    printf("\nProduto: %s", nome_prod[recebe1[i]]);
-                    printf("\nQuantidade Disponivel: %d", qtde_est[recebe1[i]]);
-                    printf("\nPreco: R$ %.2f", preco_v[recebe1[i]]);
-                    printf("\n\nQuantidade Venda: ");
-                    scanf("%d", &a);
-                    if (a > qtde_est[recebe1[i]])
-                    {
-                        printf("\nQuantidade Indisponivel!\n\nRefaca o Processo...\n\n");
-                        break;
-                    }
-                    printf("\nAdicionar outro produto: \n1 - Sim\n2 - Nao\nDigite a Opcao Desejada: ");
-                    cont++;
-                    scanf("%d", &b);
-                } while (b == 1);
-            }
-            system("cls");
-            printf("\n\n");
-            printf("     -CHECKOUT-");
-            printf("\n\nOs produtos foram: \n");
-            printf("%d - %s", 1, nome_prod[recebe - 1]);
-            if (b == 1)
+            scanf("%d", &d);
+
+            if (d == 1)
             {
                 int i = 0;
                 do
                 {
-                    printf("%d - %s\n", i + 2, nome_prod[recebe1[i]]);
+                    int pega = 0;
+                    do
+                    {
+                        printf("\nDigite o codigo do produto: ");
+                        scanf("%d", &pega);
+                        printf("\nProduto: %s", nome_prod[pega - 1]);
+                        numerador[i] = nome_prod[pega - 1];
+                        printf("\nQuantidade Disponivel: %d", qtde_est[pega - 1]);
+                        qtde_numerador[i] = qtde_est[pega - 1];
+                        printf("\nPreco: R$ %.2f", preco_v[pega - 1]);
+                        preco_numerador[i] = preco_v[pega - 1];
+                        printf("\n\nQuantidade Venda: ");
+                        scanf("%d", &a);
+                        qtdven_numerador[i] = a;
+                        if (qtdven_numerador[i] == 0)
+                        {
+                            pular = 1;
+                        }
+                        else if (a > qtde_est[pega - 1])
+                        {
+                            printf("\nQuantidade Indisponivel!\n\nRefaca o Processo...\n\n");
+                            system("pause");
+                            system("cls");
+                        }
+                    } while (a > qtde_est[pega - 1]);
+                    printf("\nAdicionar outro produto: \n1 - Sim\n2 - Nao\nDigite a Opcao Desejada: ");
                     i++;
-                } while (i < contador);
+                    cont++;
+                    f++;
+                    scanf("%d", &b);
+                } while (b == 1);
             }
-            printf("\nTotal da Venda: R$ %.2f\n\n", qtde_est[recebe - 1] * preco_v[recebe - 1]);
-            system("pause");
+
             system("cls");
+            printf("\n\n");
+            printf("     -CHECKOUT-");
+
+            if (d == 2)
+            {
+                float tot_final = subtot + ((float)qtde_est[recebe - 1] * preco_v[recebe - 1]);
+                printf("\n\nOs produtos foram: \n\n");
+                printf("Item %d: %s \nQuantidade: %d\n\n", 1, nome_prod[recebe - 1], qtde_est[recebe - 1]);
+                printf("\nTotal da Venda: R$ %.2f\n\n", tot_final);
+                system("pause");
+                system("cls");
+            }
+            else if (d == 1 && (b == 1 || b == 2))
+            {
+                int i = 0;
+                printf("\n\nOs produtos foram: \n\n");
+                printf("Item %d: %s \nQuantidade: %d\n\n", i + 1, nome_prod[recebe - 1], qtde_est[recebe - 1]);
+                do
+                {
+                    printf("Item %d: %s \nQuantidade: %d\n\n", i + 2, numerador[i], qtdven_numerador[i]);
+                    subtot += (float)qtdven_numerador[i] * preco_numerador[i];
+                    i++;
+                } while (i < cont);
+                float tot_final = subtot + ((float)qtde_est[recebe - 1] * preco_v[recebe - 1]);
+                printf("\nTotal da Venda: R$ %.2f\n\n", tot_final);
+                system("pause");
+                system("cls");
+            }
         }
 
     } while (menu1_option != 4);

@@ -184,11 +184,13 @@ int main()
 
         else
         {
-        system("cls\n");
-        printf("Opcao invalida, tente novamente...\n\n");
-        system("pause\n\n");
-        system("cls\n");
+            system("cls\n");
+            printf("Opcao invalida, tente novamente...\n\n");
+            system("pause\n\n");
+            system("cls\n");
         }
 
     } while (menu_principal_opcao != 4);
+
+    return 0;
 }

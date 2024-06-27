@@ -9,17 +9,9 @@ float markup(float a, float b)
 
 int main()
 {
-    int menu_principal_opcao, quantidade_produto[10], cont_vetor = 0, recebe_cod_prod[10] = {0}, recebe_quant_venda[10] = {0}, recebe_menu_venda, contador = 0, cont = 0, recebimento;
+    int menu_principal_opcao, quantidade_produto[10], cont_vetor = 0, recebe_cod_prod[10] = {0}, recebe_quant_venda[10] = {0}, recebe_menu_venda, contador = 0, cont = 0;
     char nome_produto[10][10];
     float preco_produto[10], custo_produto[10], total = 0;
-
-    quantidade_produto[cont_vetor];
-    recebe_cod_prod[cont_vetor];
-    recebe_quant_venda[cont_vetor];
-    recebimento;
-    nome_produto[cont_vetor][20];
-    preco_produto[cont_vetor];
-    custo_produto[cont_vetor];
 
     printf("  --SISTEMA DE GESTAO--\n\n");
     do // Loop menu principal.
@@ -28,7 +20,7 @@ int main()
         printf("1 - Cadastro de Produtos\n");
         printf("2 - Consultar Estoque\n");
         printf("3 - Venda de Produtos\n");
-        printf("4 - Entrada de Produtos\n");
+        printf("4 - Entrada de Produtos");
         printf("5 - Logoff\n\n");
         printf("Digite a Opcao Desejada: ");
         scanf("%d", &menu_principal_opcao);
@@ -183,50 +175,23 @@ int main()
             system("cls");
         }
 
-        else if (menu_principal_opcao == 4)
-        {
-            system("cls");
-            printf("    -Entrada de Produtos-\n\n");
-            printf("Deseja Pesquisar o Produto? ('Sim'/'Nao'): ");
-            char pesquisa_menu[5];
-            scanf("%s", pesquisa_menu);
-            if (strcmp(pesquisa_menu, "Sim") == 0)
-            {
-                system("cls");
-                printf("    -Entrada de Produtos-\n\n");
-                for (int i = 0; i < cont_vetor; i++)
-                {
-                    printf(" Codigo: 000%d - Nome: %s - Quantidade: %d\n\n", i + 1, nome_produto[i], quantidade_produto[i]);
-                    
-                }
-            }
-            else
-            {
-                system("cls");
-                printf("    -Entrada de Produtos-\n\n");
-                printf("Digite o Codigo do Produto: ");
-                scanf("%d", &recebimento);
-                printf("\n Codigo: 000%d - Nome: %s - Quantidade: %d\n\n", recebimento, nome_produto[recebimento-1], quantidade_produto[recebimento-1]);
-            }
-            system("pause");
-            system("cls");
-        }
-
-        else if (menu_principal_opcao == 5) // Condicional para logoff.
+        else if (menu_principal_opcao == 4) // Condicional para logoff.
         {
             system("cls");
             printf("    -LOGOFF-\n\n");
+            system("pause");
+            system("cls");
         }
 
         else
         {
             system("cls\n");
-            printf("  Opcao Indisponivel\n\n  Tente Novamente!\n\n");
+            printf("Opcao invalida, tente novamente...\n\n");
             system("pause\n\n");
             system("cls\n");
         }
 
-    } while (menu_principal_opcao != 5);
+    } while (menu_principal_opcao != 4);
 
     return 0;
 }

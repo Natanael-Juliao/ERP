@@ -185,10 +185,11 @@ int main()
 
         else if (menu_principal_opcao == 4)
         {
+            char pesquisa_menu[5];
+            int quantidade_entrada;
             system("cls");
             printf("    -Entrada de Produtos-\n\n");
             printf("Deseja Pesquisar o Produto? ('Sim'/'Nao'): ");
-            char pesquisa_menu[5];
             scanf("%s", pesquisa_menu);
             if (strcmp(pesquisa_menu, "Sim") == 0)
             {
@@ -197,8 +198,15 @@ int main()
                 for (int i = 0; i < cont_vetor; i++)
                 {
                     printf(" Codigo: 000%d - Nome: %s - Quantidade: %d\n\n", i + 1, nome_produto[i], quantidade_produto[i]);
-                    
                 }
+                printf("Digite o Codigo do Produto: ");
+                scanf("%d", &recebimento);
+                printf("\nDigite a Quantidade Para Entrada em Estoque: ");
+                scanf("%d", &quantidade_entrada);
+                recebimento -= 1;
+                quantidade_produto[recebimento] += quantidade_entrada;
+                printf("\nNova Quantidade em Estoque: %d", quantidade_produto[recebimento]);
+                printf("\n\n");
             }
             else
             {
@@ -206,7 +214,13 @@ int main()
                 printf("    -Entrada de Produtos-\n\n");
                 printf("Digite o Codigo do Produto: ");
                 scanf("%d", &recebimento);
-                printf("\n Codigo: 000%d - Nome: %s - Quantidade: %d\n\n", recebimento, nome_produto[recebimento-1], quantidade_produto[recebimento-1]);
+                printf("\n Codigo: 000%d - Nome: %s - Quantidade: %d\n\n", recebimento, nome_produto[recebimento - 1], quantidade_produto[recebimento - 1]);
+                printf("\n\nDigite a Quantidade Para Entrada em Estoque: ");
+                scanf("%d", &quantidade_entrada);
+                recebimento -= 1;
+                quantidade_produto[recebimento] += quantidade_entrada;
+                printf("\nNova Quantidade em Estoque: %d", quantidade_produto[recebimento]);
+                printf("\n\n");
             }
             system("pause");
             system("cls");

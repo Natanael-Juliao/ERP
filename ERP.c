@@ -9,9 +9,9 @@ float markup(float a, float b)
 
 int main()
 {
-    int menu_principal_opcao, quantidade_produto[10], cont_vetor = 0, recebe_cod_prod[10] = {0}, recebe_quant_venda[10] = {0}, recebe_menu_venda, contador = 0, cont = 0, recebimento;
+    int menu_principal_opcao, quantidade_produto[10] = {0}, cont_vetor = 0, recebe_cod_prod[10] = {0}, recebe_quant_venda[10] = {0}, recebe_menu_venda, contador = 0, cont = 0, recebimento, contador_custo[10] = {0};
     char nome_produto[10][10];
-    float preco_produto[10], custo_produto[10], total = 0;
+    float preco_produto[10] = {0}, custo_produto[10] = {0}, total = 0, mkp_produto[10];
 
     quantidade_produto[cont_vetor];
     recebe_cod_prod[cont_vetor];
@@ -20,6 +20,7 @@ int main()
     nome_produto[cont_vetor][20];
     preco_produto[cont_vetor];
     custo_produto[cont_vetor];
+    mkp_produto[cont_vetor];
 
     printf("  --SISTEMA DE GESTAO--\n\n");
     do // Loop menu principal.
@@ -36,24 +37,21 @@ int main()
         {
             do // Loop do menu de cadastro de produtos.
             {
-                int i = cont_vetor; // cont_vetor está contando os vetores.
+                int i = cont_vetor;
+                int divisao; // cont_vetor está contando os vetores.
                 system("cls");
                 printf("\n");
                 printf("    -CADASTRO-\n\n");
                 printf("\nDigite o nome do produto: ");
                 scanf("%s", nome_produto[i]);
-                printf("Digite a quantidade: ");
-                scanf("%d", &quantidade_produto[i]);
-                printf("Digite o custo do produto: R$ ");
-                scanf("%f", &custo_produto[i]);
-                printf("Digite o preco de venda do produto: R$ ");
-                scanf("%f", &preco_produto[i]);
+                printf("Digite o MarkUp Desejado: ");
+                scanf("%f", &mkp_produto[i]);
                 cont_vetor++;
-                do // Loop do submenu de cadastro (operação de acrescentar mais itens).
+                do // Loop do submenu de cadastro (operação de cadastrar mais itens).
                 {
-                    printf("\nDeseja cadastrar outro produto?\n1 - Sim\n2 - Nao\nDigite a opcao desejada: ");
+                    printf("\nProduto Cadastrado Com Sucesso!\n\nDeseja cadastrar outro produto?\n1 - Sim\n2 - Nao\nDigite a opcao desejada: ");
                     scanf("%d", &menu_principal_opcao);
-                    if (menu_principal_opcao == 1)
+                    if (menu_principal_opcao == 1) // Menu Cadastro do Produto.
                     {
                         i++;
                         break;
@@ -79,54 +77,25 @@ int main()
             printf("   -ESTOQUE-\n\n");
             for (int i = 0; i < cont_vetor; i++) // Loop para apresentar todo o estoque.
             {
-                int a = 0;
+                // int a = 0;
                 printf("\nCodigo: 000%d", i + 1);
-                printf("\nProduto: %s", nome_produto[i]);
-                if (cont > 0 && nome_produto[i] != nome_produto[recebe_cod_prod[a] - 1])
-                {
-                    a++;
-                    if (nome_produto[i] != nome_produto[recebe_cod_prod[a] - 1])
-                    {
-                        while (nome_produto[i] != nome_produto[recebe_cod_prod[a] - 1])
-                        {
-                            a++;
-                        }
-                        printf("\nQuantidade: %d", quantidade_produto[i]);
-                    }
-                    else if (nome_produto[i] == nome_produto[recebe_cod_prod[a] - 1] && nome_produto[recebe_cod_prod[a]] == 0)
-                    {
-                        printf("\nQuantidade: %d", quantidade_produto[i]);
-                    }
-                    else if (nome_produto[i] == nome_produto[recebe_cod_prod[a] - 1])
-                    {
-                        printf("\nQuantidade: %d", quantidade_produto[i] - recebe_quant_venda[a]);
-                        quantidade_produto[i] -= recebe_quant_venda[a];
-                        // a++;
-                    }
-                }
-
-                else if (cont > 0 && nome_produto[i] == nome_produto[recebe_cod_prod[a] - 1] && nome_produto[recebe_cod_prod[a]] == 0)
-                {
-                    printf("\nQuantidade: %d", quantidade_produto[i]);
-                }
-
-                else if (nome_produto[i] == nome_produto[recebe_cod_prod[a] - 1])
-                {
-                    printf("\nQuantidade: %d", quantidade_produto[i] - recebe_quant_venda[a]);
-                    quantidade_produto[i] -= recebe_quant_venda[a];
-                }
-                else if (cont == 0)
-                {
-                    printf("\nQuantidade: %d", quantidade_produto[i]);
-                }
+                printf("\nDescricao: %s", nome_produto[i]);
+                printf("\nQuantidade em Estoque: %d", quantidade_produto[i]);
                 printf("\nPreco de Venda: R$ %.2f", preco_produto[i]);
-                printf("\nMarkUp: %.2f\n", markup(preco_produto[i], custo_produto[i]));
+                if (markup(preco_produto[i], custo_produto[i]) > 0 && markup(preco_produto[i], custo_produto[i]) <= 100)
+                {
+                    printf("\nMarkUp: %.2f\n", markup(preco_produto[i], custo_produto[i]));
+                }
+                else
+                {
+                    printf("\nMarkUp: 0\n");
+                }
             }
-            system("\npause");
+            system("pause");
             system("cls");
         }
 
-        else if (menu_principal_opcao == 3)
+        else if (menu_principal_opcao == 3) // Menu de Venda.
         {
             int i = 0;
             contador = 0;
@@ -149,6 +118,7 @@ int main()
                         printf("\n\nQuantidade Indisponivel!\n\nDigite uma quantidade valida...");
                     }
                 } while (recebe_quant_venda[i] > quantidade_produto[recebe_cod_prod[i] - 1]);
+                quantidade_produto[i] -= recebe_quant_venda[i];
                 printf("\nDeseja Adicionar mais produtos?\n1 - Sim\n2 - Nao\nDigite a opcao desejada: ");
                 scanf("%d", &recebe_menu_venda);
                 if (recebe_menu_venda == 1)
@@ -163,15 +133,7 @@ int main()
             do
             {
                 printf("\n%s", nome_produto[recebe_cod_prod[i] - 1]);
-                if (recebe_quant_venda > 1)
-                {
-                    printf("\n%d unidades", recebe_quant_venda[i]);
-                }
-                else
-                {
-                    printf("\n%d unidade", recebe_quant_venda[i]);
-                }
-
+                printf("\n%d unidades", recebe_quant_venda[i]);
                 printf("\nSubtotal: R$ %.2f", recebe_quant_venda[i] * preco_produto[recebe_cod_prod[i] - 1]);
                 printf("\n");
                 total += ((float)recebe_quant_venda[i] * preco_produto[recebe_cod_prod[i] - 1]);
@@ -183,10 +145,11 @@ int main()
             system("cls");
         }
 
-        else if (menu_principal_opcao == 4)
+        else if (menu_principal_opcao == 4) // Menu de Entrada de Produto.
         {
             char pesquisa_menu[5];
             int quantidade_entrada;
+            float recebe_custo;
             system("cls");
             printf("    -Entrada de Produtos-\n\n");
             printf("Deseja Pesquisar o Produto? ('Sim'/'Nao'): ");
@@ -199,14 +162,40 @@ int main()
                 {
                     printf(" Codigo: 000%d - Nome: %s - Quantidade: %d\n\n", i + 1, nome_produto[i], quantidade_produto[i]);
                 }
-                printf("Digite o Codigo do Produto: ");
-                scanf("%d", &recebimento);
-                printf("\nDigite a Quantidade Para Entrada em Estoque: ");
-                scanf("%d", &quantidade_entrada);
-                recebimento -= 1;
-                quantidade_produto[recebimento] += quantidade_entrada;
-                printf("\nNova Quantidade em Estoque: %d", quantidade_produto[recebimento]);
-                printf("\n\n");
+                do
+                {
+                    printf("Digite o Codigo do Produto: ");
+                    scanf("%d", &recebimento);
+                    printf("\nDigite a Quantidade Para Entrada em Estoque: ");
+                    scanf("%d", &quantidade_entrada);
+                    recebimento -= 1;
+                    quantidade_produto[recebimento] += quantidade_entrada;
+                    printf("Digite o Custo do Produto: R$ ");
+                    scanf("%f", &recebe_custo);
+                    if (contador_custo[recebimento] == 0)
+                    {
+                        custo_produto[recebimento] += recebe_custo;
+                        contador_custo[recebimento] = 1;
+                    }
+                    else
+                    {
+                        custo_produto[recebimento] = ((custo_produto[recebimento] * (quantidade_produto[recebimento] - quantidade_entrada)) + (recebe_custo * quantidade_entrada)) / quantidade_produto[recebimento];
+                    }
+
+                    preco_produto[recebimento] = (custo_produto[recebimento] * (mkp_produto[recebimento] / 100)) + custo_produto[recebimento];
+                    printf("\n\nConfirma a operacao?\n1 - Sim\n2- Nao\nDigite a opcao desejada: ");
+                    scanf("%d", &recebe_menu_venda);
+                    if (recebe_menu_venda == 1)
+                    {
+                        break;
+                    }
+                    else if (recebe_menu_venda == 2)
+                    {
+                        printf("\nPor favor, refaca a operacao!");
+                        system("cls");
+                        break;
+                    }
+                } while (recebe_menu_venda != 1);
             }
             else
             {

@@ -30,15 +30,15 @@ int main()
         printf("2 - Consultar Estoque\n");
         printf("3 - Venda de Produtos\n");
         printf("4 - Entrada de Produtos\n");
-        printf("5 - Logoff\n\n");
+        printf("5 - Relatorio de Vendas\n");
+        printf("6 - Logoff\n\n");
         printf("Digite a Opcao Desejada: ");
         scanf("%d", &menu_principal_opcao);
         if (menu_principal_opcao == 1) // Menu cadastro de produtos.
         {
             do // Loop do menu de cadastro de produtos.
             {
-                int i = cont_vetor;
-                int divisao; // cont_vetor está contando os vetores.
+                int i = cont_vetor; // cont_vetor está contando os vetores.
                 system("cls");
                 printf("\n");
                 printf("    -CADASTRO-\n\n");
@@ -77,7 +77,6 @@ int main()
             printf("   -ESTOQUE-\n\n");
             for (int i = 0; i < cont_vetor; i++) // Loop para apresentar todo o estoque.
             {
-                // int a = 0;
                 printf("\nCodigo: 000%d", i + 1);
                 printf("\nDescricao: %s", nome_produto[i]);
                 printf("\nQuantidade em Estoque: %d", quantidade_produto[i]);
@@ -109,7 +108,7 @@ int main()
                 printf("\nProduto: %s", nome_produto[recebe_cod_prod[i] - 1]);
                 printf("\nQuantidade Disponivel: %d", quantidade_produto[recebe_cod_prod[i] - 1]);
                 printf("\nPreco: R$ %.2f", preco_produto[recebe_cod_prod[i] - 1]);
-                do
+                do // Laço de repetição para checagem de estoque
                 {
                     printf("\n\nQuantidade da Venda: ");
                     scanf("%d", &recebe_quant_venda[i]);
@@ -154,7 +153,7 @@ int main()
             printf("    -Entrada de Produtos-\n\n");
             printf("Deseja Pesquisar o Produto? ('Sim'/'Nao'): ");
             scanf("%s", pesquisa_menu);
-            if (strcmp(pesquisa_menu, "Sim") == 0)
+            if (strcmp(pesquisa_menu, "Sim") == 0) // Condicional para rodar uma lista com os produtos antes de escolher qual irá inserir no estoque.
             {
                 system("cls");
                 printf("    -Entrada de Produtos-\n\n");
@@ -172,17 +171,17 @@ int main()
                     quantidade_produto[recebimento] += quantidade_entrada;
                     printf("Digite o Custo do Produto: R$ ");
                     scanf("%f", &recebe_custo);
-                    if (contador_custo[recebimento] == 0)
+                    if (contador_custo[recebimento] == 0) // Contabilizando o custo para a primeira inserção de custo.
                     {
                         custo_produto[recebimento] += recebe_custo;
                         contador_custo[recebimento] = 1;
                     }
-                    else
+                    else // Fazendo o custo médio do estoque e gerando o novo custo.
                     {
                         custo_produto[recebimento] = ((custo_produto[recebimento] * (quantidade_produto[recebimento] - quantidade_entrada)) + (recebe_custo * quantidade_entrada)) / quantidade_produto[recebimento];
                     }
 
-                    preco_produto[recebimento] = (custo_produto[recebimento] * (mkp_produto[recebimento] / 100)) + custo_produto[recebimento];
+                    preco_produto[recebimento] = (custo_produto[recebimento] * (mkp_produto[recebimento] / 100)) + custo_produto[recebimento]; // Ajustando o preço de venda com o novo custo.
                     printf("\n\nConfirma a operacao?\n1 - Sim\n2- Nao\nDigite a opcao desejada: ");
                     scanf("%d", &recebe_menu_venda);
                     if (recebe_menu_venda == 1)
@@ -197,7 +196,7 @@ int main()
                     }
                 } while (recebe_menu_venda != 1);
             }
-            else
+            else // Condicional para adicionar um produto direto, sem antes consultar os produtos em estoque.
             {
                 do
                 {
@@ -209,17 +208,17 @@ int main()
                     quantidade_produto[recebimento] += quantidade_entrada;
                     printf("Digite o Custo do Produto: R$ ");
                     scanf("%f", &recebe_custo);
-                    if (contador_custo[recebimento] == 0)
+                    if (contador_custo[recebimento] == 0) // Contabilizando o custo para a primeira inserção de custo.
                     {
                         custo_produto[recebimento] += recebe_custo;
                         contador_custo[recebimento] = 1;
                     }
-                    else
+                    else // Fazendo o custo médio do estoque e gerando o novo custo.
                     {
                         custo_produto[recebimento] = ((custo_produto[recebimento] * (quantidade_produto[recebimento] - quantidade_entrada)) + (recebe_custo * quantidade_entrada)) / quantidade_produto[recebimento];
                     }
 
-                    preco_produto[recebimento] = (custo_produto[recebimento] * (mkp_produto[recebimento] / 100)) + custo_produto[recebimento];
+                    preco_produto[recebimento] = (custo_produto[recebimento] * (mkp_produto[recebimento] / 100)) + custo_produto[recebimento]; // Ajustando o preço de venda com o novo custo.
                     printf("\n\nConfirma a operacao?\n1 - Sim\n2- Nao\nDigite a opcao desejada: ");
                     scanf("%d", &recebe_menu_venda);
                     if (recebe_menu_venda == 1)
@@ -234,11 +233,20 @@ int main()
                     }
                 } while (recebe_menu_venda != 1);
             }
+            printf("\n\n");
             system("pause");
             system("cls");
         }
 
-        else if (menu_principal_opcao == 5) // Condicional para logoff.
+        else if (menu_principal_opcao == 5) // Menu - Relatorio de Vendas.
+        {
+            system("cls");
+            printf("Em Construcao\n\n");
+            system("pause");
+            system("cls");
+        }
+
+        else if (menu_principal_opcao == 6) // Menu - Logoff.
         {
             system("cls");
             printf("    -LOGOFF-\n\n");
@@ -252,7 +260,7 @@ int main()
             system("cls\n");
         }
 
-    } while (menu_principal_opcao != 5);
+    } while (menu_principal_opcao != 6);
 
     return 0;
 }

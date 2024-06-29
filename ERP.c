@@ -199,17 +199,40 @@ int main()
             }
             else
             {
-                system("cls");
-                printf("    -Entrada de Produtos-\n\n");
-                printf("Digite o Codigo do Produto: ");
-                scanf("%d", &recebimento);
-                printf("\n Codigo: 000%d - Nome: %s - Quantidade: %d\n\n", recebimento, nome_produto[recebimento - 1], quantidade_produto[recebimento - 1]);
-                printf("\n\nDigite a Quantidade Para Entrada em Estoque: ");
-                scanf("%d", &quantidade_entrada);
-                recebimento -= 1;
-                quantidade_produto[recebimento] += quantidade_entrada;
-                printf("\nNova Quantidade em Estoque: %d", quantidade_produto[recebimento]);
-                printf("\n\n");
+                do
+                {
+                    printf("Digite o Codigo do Produto: ");
+                    scanf("%d", &recebimento);
+                    printf("\nDigite a Quantidade Para Entrada em Estoque: ");
+                    scanf("%d", &quantidade_entrada);
+                    recebimento -= 1;
+                    quantidade_produto[recebimento] += quantidade_entrada;
+                    printf("Digite o Custo do Produto: R$ ");
+                    scanf("%f", &recebe_custo);
+                    if (contador_custo[recebimento] == 0)
+                    {
+                        custo_produto[recebimento] += recebe_custo;
+                        contador_custo[recebimento] = 1;
+                    }
+                    else
+                    {
+                        custo_produto[recebimento] = ((custo_produto[recebimento] * (quantidade_produto[recebimento] - quantidade_entrada)) + (recebe_custo * quantidade_entrada)) / quantidade_produto[recebimento];
+                    }
+
+                    preco_produto[recebimento] = (custo_produto[recebimento] * (mkp_produto[recebimento] / 100)) + custo_produto[recebimento];
+                    printf("\n\nConfirma a operacao?\n1 - Sim\n2- Nao\nDigite a opcao desejada: ");
+                    scanf("%d", &recebe_menu_venda);
+                    if (recebe_menu_venda == 1)
+                    {
+                        break;
+                    }
+                    else if (recebe_menu_venda == 2)
+                    {
+                        printf("\nPor favor, refaca a operacao!");
+                        system("cls");
+                        break;
+                    }
+                } while (recebe_menu_venda != 1);
             }
             system("pause");
             system("cls");
